@@ -1,0 +1,72 @@
+.logo {
+    height: 64px;
+    position: relative;
+    line-height: 64px;
+    padding-left: 24px;
+    transition: all 0.3s;
+    background: #002140;
+    overflow: hidden;
+}
+
+.logo img {
+    display: inline-block;
+    vertical-align: middle;
+    height: 32px;
+}
+
+.logo h1 {
+    color: white;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 20px;
+    margin: 0 0 0 12px;
+    font-family: 'Myriad Pro', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: 600;
+}
+
+.sider {
+    min-height: 100vh;
+    box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+    position: relative;
+    z-index: 10;
+    overflow: auto;
+    left: 0;
+}
+
+.sider .ligth {
+     background-color: white;
+}
+
+.sider .ligth .logo {
+    background: white;
+}
+
+.sider .ligth .logo h1 {
+    color: #002140;
+}
+
+.icon {
+    width: 14px;
+    margin-right: 10px;
+}
+
+
+:global .drawer .drawer-content {
+    background: #001529;
+}
+
+:global .ant-menu-inline-collapsed .ant-menu-item .sider-menu-item-img + span,
+:global .ant-menu-inline-collapsed .ant-menu-item-group .ant-menu-item-group-list .ant-menu-item .sider-menu-item-img + span,
+:global .ant-menu-inline-collapsed .ant-menu-submenu .ant-menu-submenu-title .sider-menu-item-img + span {
+    max-width: 0;
+    display: inline-block;
+    opacity: 0;
+}
+
+
+
+:global .ant-menu-item .sider-menu-item-img + span,
+:global .ant-menu-submenu-title .sider-menu-item-img + span {
+    transition: opacity 0.3s , width 0.3s ;
+    opacity: 1;
+}

@@ -1,0 +1,89 @@
+.header {
+    height: 64px;
+    padding: 0 12px 0 0;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    position: relative;
+}
+
+:global .ant-layout {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+/*.logo {*/
+    /*height: 64px;*/
+    /*line-height: 58px;*/
+    /*vertical-align: top;*/
+    /*display: inline-block;*/
+    /*padding: 0 0 0 24px;*/
+    /*cursor: pointer;*/
+    /*font-size: 20px;*/
+    /*background: #00152a;*/
+/*}*/
+
+/*.logo img {*/
+    /*display: inline-block;*/
+    /*vertical-align: middle;*/
+/*}*/
+
+.menu :global(.anticon) {
+    margin-right: 8px;
+}
+.menu :global(.ant-dropdown-menu-item) {
+    width: 160px;
+}
+
+.trigger {
+    font-size: 20px;
+    line-height: 64px;
+    cursor: pointer;
+    transition: all 0.3s, padding 0s;
+    padding: 0 24px;
+}
+
+i.trigger :hover {
+    background: rgba(0,0,0,.45);
+     /*background: @primary-1;*/
+}
+
+.right {
+    float: right;
+    height: 100%;
+}
+
+.right .action {
+    cursor: pointer;
+    padding: 0 12px;
+    display: inline-block;
+    transition: all 0.3s;
+    height: 100%;
+}
+
+.right .action > i {
+    font-size: 16px;
+    vertical-align: middle;
+    /*color: @text-color;*/
+}
+
+.right .action:hover,
+.right .action:global(.ant-popover-open) {
+     background: #e6f7ff
+}
+
+.right .search {
+    padding: 0;
+    margin: 0 12px;
+}
+.right .search :hover {
+     background: transparent;
+}
+
+.right .account .avatar {
+    margin: 20px 8px 20px 0;
+    color: rgba(0,0,0,.45); /*@primary-color;*/
+    background: rgba(255, 255, 255, 0.85);
+    vertical-align: middle;
+}
+
