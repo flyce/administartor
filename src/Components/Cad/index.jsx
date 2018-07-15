@@ -7,7 +7,9 @@ import { get } from '../../Utils/fetch';
 class Cad extends PureComponent {
     state = {
         isLoading: true,
-        data: null
+        data: null,
+        count: 0,
+        defaultCurrent: 1
     };
 
 
@@ -21,8 +23,31 @@ class Cad extends PureComponent {
             } else {
                 message.error(res.info);
             }
-        })
+        });
+        get('admin/count?path=cad').then(res => {
+            if(res.success) {
+                this.setState({
+                    count: res.count
+                });
+            } else {
+                message.error(res.info);
+            }
+        });
     }
+
+    onChange = (page) => {
+        get('admin/cad?skip=' + (page - 1)).then((res) => {
+            if(res.success) {
+                this.setState({
+                    data: res.docs,
+                    defaultCurrent: page,
+                    isLoading: false
+                });
+            } else {
+                message.error(res.info);
+            }
+        });
+    };
 
     render () {
         if (this.state.isLoading) {
@@ -59,7 +84,7 @@ class Cad extends PureComponent {
                 title: 'effectiveDate',
                 dataIndex: 'effectiveDate',
                 key: 'effectiveDate'
-            }, 
+            },
             {
                 title: '抓取时间',
                 dataIndex: 'timestamp',
@@ -83,7 +108,15 @@ class Cad extends PureComponent {
                 <LoginVerify/>
                 <Card bordered={false}>
                     <div className={"tableList"}>
-                        <Table columns={columns} dataSource={this.state.data} rowKey={record => record._id} />
+                        <Table columns={columns}
+                               dataSource={this.state.data}
+                               rowKey={record => record._id}
+                               pagination={{
+                                   defaultCurrent: this.state.defaultCurrent,
+                                   total: this.state.count,
+                                   onChange:this.onChange
+                               }}
+                        />
                     </div>
                 </Card>
             </div>

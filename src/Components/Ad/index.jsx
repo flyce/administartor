@@ -6,9 +6,24 @@ import { get } from '../../Utils/fetch';
 class Ad extends PureComponent {
     state = {
         isLoading: true,
-        data: null
+        data: null,
+        count: 0,
+        defaultCurrent: 1
     };
 
+    onChange = (page) => {
+        get('admin/ad?skip=' + (page - 1)).then((res) => {
+            if(res.success) {
+                this.setState({
+                    data: res.docs,
+                    defaultCurrent: page,
+                    isLoading: false
+                });
+            } else {
+                message.error(res.info);
+            }
+        });
+    };
 
     componentDidMount() {
         get('admin/ad').then((res) => {
@@ -20,7 +35,16 @@ class Ad extends PureComponent {
             } else {
                 message.error(res.info);
             }
-        })
+        });
+        get('admin/count?path=ad').then(res => {
+           if(res.success) {
+               this.setState({
+                   count: res.count
+               });
+           } else {
+               message.error(res.info);
+           }
+        });
     }
 
     render () {
@@ -30,34 +54,40 @@ class Ad extends PureComponent {
 
         const columns = [
             {
-                title: 'number',
+                title: 'AD号',
                 dataIndex: 'number',
-                key: 'number'
+                key: 'number',
+                width: "12%"
             },
             {
-                title: 'issuedBy',
+                title: '发布人',
                 dataIndex: 'issuedBy',
-                key: 'issuedBy'
+                key: 'issuedBy',
+                width: "7%"
             },
             {
                 title: 'issuedDate',
                 dataIndex: 'issuedDate',
                 key: 'issuedDate',
+                width: "10%"
             },
             {
-                title: 'subject',
+                title: '主题',
                 dataIndex: 'subject',
-                key: 'subject'
+                key: 'subject',
+                width: "25%"
             },
             {
-                title: 'Designation',
+                title: '航空器',
                 dataIndex: 'approvalHolderTypeDesignation',
-                key: 'approvalHolderTypeDesignation'
+                key: 'approvalHolderTypeDesignation',
+                width: "18%"
             },
             {
-                title: 'effectiveDate',
+                title: '生效日期',
                 dataIndex: 'effectiveDate',
-                key: 'effectiveDate'
+                key: 'effectiveDate',
+                width: "10%"
             },
             {
                 title: '抓取时间',
@@ -67,15 +97,10 @@ class Ad extends PureComponent {
                     <div>
                     {new Date(value).toLocaleString('zh-CN', { hour12: false })}
                     </div>
-                )
+                ),
+                width: "15%"
             }
         ];
-
-        // if (this.state.isLoading) {
-        //     return (
-        //         <div>Loading</div>
-        //     );
-        // }
 
         return (
             <div>
@@ -86,14 +111,11 @@ class Ad extends PureComponent {
                             columns={columns}
                             dataSource={this.state.data}
                             rowKey={record => record._id}
-                            loading={this.state.isLoading}
-                            pagination={
-                                {
-                                    showSizeChanger: true,
-                                    defaultCurrent: 1,
-                                    total: 53
-                                }
-                            }
+                            pagination={{
+                                defaultCurrent: this.state.defaultCurrent,
+                                total: this.state.count,
+                                onChange:this.onChange
+                            }}
                         />
                     </div>
                 </Card>
