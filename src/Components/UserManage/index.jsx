@@ -42,7 +42,10 @@ const CreateForm = Form.create()((props) => {
             onOk={okHandle}
             onCancel={() => handleModalVisible()}
             footer={[
-                <Button key="reset" type="danger" onClick={resetPassword}>
+                <Button key="reset" type="danger" ghost onClick={() => {message.error("该操作不可逆")}}>
+                    删除
+                </Button>,
+                <Button key="reset" type="primary" ghost onClick={resetPassword}>
                     重置密码
                 </Button>,
                 <Button key="cancel" onClick={() => handleModalVisible()}>取消</Button>,
